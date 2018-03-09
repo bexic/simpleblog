@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PostActions from '../../actions/postActions';
@@ -6,7 +6,7 @@ import PostList from '../postList';
 import PostDetail from '../postDetail';
 import _ from 'lodash';
 
-class PostContainer extends React.Component {
+class PostContainer extends Component {
   componentDidMount() {
     if ( _.size(this.props.posts) === 0 ) {
       this.props.actions.fetchPosts();
@@ -18,13 +18,14 @@ class PostContainer extends React.Component {
       <div className="panel">
         <PostList
           posts={this.props.posts}
-          activePost={this.props.activePost}
+          postActive={this.props.postActive}
+          postFormVisible={this.props.postFormVisible}
           selectPost={this.props.actions.selectPost}
-          showAddPost={this.props.actions.showAddPost}
-          />
-        <PostDetail
-          post={this.props.activePost}
-          />
+          togglePostAddForm={this.props.actions.togglePostAddForm}
+          showPostAddForm={this.props.actions.showPostAddForm}
+          hidePostAddForm={this.props.actions.hidePostAddForm}
+        />
+        <PostDetail post={this.props.postActive} />
       </div>
     );
   }
@@ -33,7 +34,8 @@ class PostContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     posts: state.posts,
-    activePost: state.activePost
+    postActive: state.postActive,
+    postFormVisible: state.postFormVisible
   };
 }
 

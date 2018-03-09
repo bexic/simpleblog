@@ -6,6 +6,11 @@ class postApi {
     const request = axios.get(`${ROOT_URL}posts`);
     return request;
   }
+
+  static createPost (values) {
+    const request = axios.post(`${ROOT_URL}posts`, values);
+    return request;
+  }
 }
 
 export default postApi;

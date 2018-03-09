@@ -2,30 +2,17 @@ import React, { Component } from 'react';
 import PostNew from './postNew';
 
 class PostList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isAddPost: true
-    };
-  }
-
   renderPosts() {
     return _.map(this.props.posts, post => {
+      const postClassName = `list-group-item ${(this.props.postActive.id === post.id) ? 'active': ''}`;
       return (
         <li
-          className={(this.props.activePost.id === post.id) ? "list-group-item active" : "list-group-item"}
+          className={ postClassName }
           onClick={() => this.props.selectPost(post)}
           key={post.id}>
           {post.title}
         </li>
       );
-    });
-  }
-
-  toggleAddPost() {
-    this.setState({
-      isAddPost: !this.state.isAddPost
     });
   }
 
@@ -41,10 +28,15 @@ class PostList extends Component {
         </ul>
         <div
           className="add-post"
-          onClick={ () => this.toggleAddPost() }>
+          onClick={ () => this.props.togglePostAddForm(this.props.postFormVisible) }>
           Add Post
         </div>
-        <PostNew isAddPost={this.state.isAddPost} />
+        <PostNew
+          postFormVisible={this.props.postFormVisible}
+          togglePostAddForm={this.props.togglePostAddForm}
+          hidePostAddForm={this.props.hidePostAddForm}
+          forceUpdate={this.forceUpdate}
+        />
       </div>
     );
   }

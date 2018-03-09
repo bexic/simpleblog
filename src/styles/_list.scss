@@ -1,0 +1,21 @@
+.list-group {
+  list-style: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.list-group-item {
+  display: block;
+  cursor: pointer;
+  color: inherit;
+  padding: 8pt 16pt;
+  margin-bottom: 8pt;
+
+  &.active {
+    background-color: #3a48a0;
+  }
+
+  &:hover {
+    background-color: #3a48a0;
+  }
+}
